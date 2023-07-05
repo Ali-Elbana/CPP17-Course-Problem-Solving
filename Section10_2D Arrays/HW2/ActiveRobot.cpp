@@ -9,8 +9,13 @@ int main(void)
 
 	system( "cls" ) ;
 	
-	unsigned int rows ;
-	unsigned int columns ;
+	int rows 						;
+	int columns 					;
+	unsigned int CommandsNum 		;
+	unsigned int direction 			;
+	unsigned int steps 				;
+	int currentRow{0}		;
+	int currentColumn{0} 	;
 	
 	cout<<endl <<"Enter the number of rows: " ;
 	cin>>rows ;
@@ -20,31 +25,95 @@ int main(void)
 	
 	int array[rows][columns] ;
 	
+	cout<<endl <<"Enter the number of commands: " ;
+	cin>>CommandsNum ;
 	
-	cout<<endl <<"Enter the array elements: " ;
-	for( int r = 0; r < rows; r++ )
+	for( int k = 0; k < CommandsNum; k++ )
 	{
 		
-		for( int c = 0; c < columns; c++ )
+		cout<<endl <<"Enter the direction: " ;
+		cin>>direction ;
+		
+		cout<<endl <<"Enter the steps: " ;
+		cin>>steps ;
+		
+		switch( direction )
 		{
-			cin>>array[r][c] ;
+			// UP //
+			case 1:     
+				
+				currentRow = currentRow - steps ;
+				
+				if( currentRow < 0 )
+				{
+					currentRow = -( currentRow % (-rows) ) ;
+					
+					currentRow = rows - currentRow ;
+					
+					if( currentRow == rows )
+					{
+						currentRow = 0 ;
+					}
+				}
+				
+				
+			break ;
+			
+			//---------------------------------------------------//
+			
+			// RIGHT //
+			case 2:     
+				
+				currentColumn = (currentColumn + steps) % columns ;
+				
+			break ;
+			
+			//---------------------------------------------------//
+			
+			// DOWN //
+			case 3:     
+				
+				currentRow = (currentRow + steps) % rows ;
+				
+			break ;
+			
+			//---------------------------------------------------//
+			
+			// LEFT //
+			case 4:     
+				
+				currentColumn = currentColumn - steps ;
+				
+				if( currentColumn < 0 )
+				{
+					currentColumn = -( currentColumn % (-columns) ) ;
+					
+					currentColumn = columns - currentColumn ;
+					
+					if( currentColumn == columns )
+					{
+						currentColumn = 0 ;
+					}
+				}
+				
+				
+			break ;
+			
+			//---------------------------------------------------//
+			
+			// DEFAULT //
+			default:     
+				
+				// Do nothing //
+				
+			break ;
+			
 		}
+		
+		cout<<endl <<"Current position: " <<'(' <<currentRow <<',' <<' ' <<currentColumn <<')' <<endl ;
 		
 	}
 	
-	cout<<endl ;
-	
-	for( int c = 0; c < columns; c++ )
-	{
-		
-		for( int r = 0; r < rows; r++ )
-		{
-			cout<<array[r][c] <<' ' ;
-		}
-		
-		cout<<endl ;
-		
-	}
 	
 	return 0 ;
 	
