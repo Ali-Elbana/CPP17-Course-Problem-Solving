@@ -1,0 +1,93 @@
+#include<iostream>
+#include<cmath>
+
+using namespace std;
+
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+
+bool is_prime(int num) ;
+
+int nth_prime(int n) ;
+
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+
+int main(void) 
+{
+	
+	system( "cls" ) ;
+	
+	int nth	{0} ;
+	unsigned int nthPrime{2} ;
+	
+	cout<<endl <<"Enter the nth: " ;
+	cin>>nth ;
+
+	nthPrime = nth_prime( nth ) ;
+	
+	cout<<endl <<"Nth prime = " <<nthPrime <<endl ;
+	
+}
+
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+
+bool is_prime( int num ) 
+{
+	
+	bool isPrime {false} ;
+	
+	if( (num == 2) || (num == 3) )
+	{
+		isPrime = true ;
+	}
+	else if( (num % 2 != 0) && (num % 3 != 0) )
+	{
+		isPrime = true ;
+	}
+	else
+	{
+		isPrime = false ;
+	}
+	
+	return isPrime ;
+	
+}
+
+////////////////////////////////////////////////////////////////////
+
+int nth_prime( int n )
+{
+	
+	unsigned int nthPrime{2} ;
+	unsigned int PrimeNums{0} ;
+	bool flag {false} ; 
+	
+	int Num {2} ;
+	
+	while( PrimeNums < n )
+	{
+		
+		flag = is_prime( Num ) ;
+		
+		if( flag == true )
+		{
+			PrimeNums++ ;
+		}
+		
+		if( PrimeNums == n )
+		{
+			nthPrime = Num ;
+		}
+		
+		Num++ ;
+	}
+	
+	
+	return nthPrime ;
+	
+}
+
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
