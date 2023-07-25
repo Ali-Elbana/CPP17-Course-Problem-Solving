@@ -105,7 +105,7 @@ bool Check_bSpecializationQueueFull( unsigned int A_uintspecializationQueue[],
 {
 	bool isFull{false} ;
 	
-	if( A_uintspecializationQueue[A_uintSpecializationNum] >= MAX_PATIENTS )
+	if( A_uintspecializationQueue[A_uintSpecializationNum-1] >= MAX_PATIENTS )
 	{
 		isFull = true ;
 	}
@@ -113,9 +113,8 @@ bool Check_bSpecializationQueueFull( unsigned int A_uintspecializationQueue[],
 	{
 		isFull = false ;
 	}
-	
+
 	return isFull ;
-	
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -315,14 +314,160 @@ bool Check_bValidPatientStatus( int A_intPatientStatus )
 ////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
 
+void Shift_vLeft( 	unsigned int A_uintSpecializationNum, string A_strPatientName, int A_intPatientStatus,
+					string A_strPatientsNames[][MAX_PATIENTS], int A_intPatientsStatus[][MAX_PATIENTS]
+				)
+{
+	
+	for( int i = MAX_PATIENTS-2; i >= 0 ; i-- )
+	{
+		A_strPatientsNames[A_uintSpecializationNum-1][i+1] = A_strPatientsNames[A_uintSpecializationNum-1][i] ;
+		
+		A_intPatientsStatus[A_uintSpecializationNum-1][i+1] = A_intPatientsStatus[A_uintSpecializationNum-1][i] ;
+	}
+	
+	A_strPatientsNames[A_uintSpecializationNum-1][0] = A_strPatientName ;
+	
+	A_intPatientsStatus[A_uintSpecializationNum-1][0] = A_intPatientStatus ;
+	
+}
 
+////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
+void Add_vPatient( 	unsigned int A_uintSpecializationNum	  ,
+					string A_strPatientName					  ,
+					int A_intPatientStatus					  ,
+					unsigned int A_uintspecializationQueue[]  ,
+					string A_strPatientsNames[][MAX_PATIENTS] ,  
+					int A_intPatientsStatus[][MAX_PATIENTS]
+				 )
+{
+	
+	// Add the patient info to your data: //
+	// Add one more patient to the queue //
+	A_uintspecializationQueue[A_uintSpecializationNum-1] = A_uintspecializationQueue[A_uintSpecializationNum-1] + 1 ;
+	
+	// Check for the patient status //
+	if( A_intPatientStatus == REGULAR )
+	{
+		// Add his name //
+		A_strPatientsNames[A_uintSpecializationNum-1][A_uintspecializationQueue[A_uintSpecializationNum-1]-1] = A_strPatientName ;
+		
+		// Add his status //
+		A_intPatientsStatus[A_uintSpecializationNum-1][A_uintspecializationQueue[A_uintSpecializationNum-1]-1] = A_intPatientStatus ;							
+	}
+	// patient status is urgent //
+	else
+	{
+		
+		Shift_vLeft( A_uintSpecializationNum, A_strPatientName, A_intPatientStatus,
+					 A_strPatientsNames, A_intPatientsStatus ) ;
+		
+	}
+	
+}
 
+////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
+void Print_vAllPatients( unsigned int A_uintspecializationQueue[]  ,
+						 string A_strPatientsNames[][MAX_PATIENTS] ,  
+						 int A_intPatientStatus[][MAX_PATIENTS]
+						) 
 
+{
+	
+	for( int i = 0; i < MAX_SPECIALIZATION; i++ )
+	{
+		// Skip the empty specializations //
+		if( A_uintspecializationQueue[i] == 0 )
+		{
+			continue ;
+		}
+		else
+		{
+			
+			if( A_uintspecializationQueue[i] > 1 )
+			{
+				cout<<endl <<"There are " <<A_uintspecializationQueue[i] 
+				<<" patients in specialization " <<i+1 <<':' ;
+			}
+			else
+			{
+				cout<<endl <<"There are " <<A_uintspecializationQueue[i] 
+				<<" patient in specialization " <<i+1 <<':' ;
+			}
+			
+			for( int j = 0; j < A_uintspecializationQueue[i]; j++ )
+			{
+				cout<<endl <<j+1 <<'-' <<A_strPatientsNames[i][j] <<' ' ;
+				
+				(A_intPatientStatus[i][j] == URGENT) ? cout<<"--> "<<"Urgent" : cout<<"--> "<<"Regular" ;
+			}
+			
+		}
+		
+		cout<<endl ;
+	}
+	
+}
 
+////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
+void Shift_vRight( 	unsigned int A_uintSpecializationNum,
+					string A_strPatientsNames[][MAX_PATIENTS], int A_intPatientsStatus[][MAX_PATIENTS] 
+				)
+{
+	
+	for( int i = 0; i < MAX_PATIENTS-1; i++ )
+	{
+		
+		A_strPatientsNames[A_uintSpecializationNum-1][i] = A_strPatientsNames[A_uintSpecializationNum-1][i+1] ;
+		
+		A_intPatientsStatus[A_uintSpecializationNum-1][i] = A_intPatientsStatus[A_uintSpecializationNum-1][i+1] ;
+		
+	}
+	
+	A_strPatientsNames[A_uintSpecializationNum-1][MAX_PATIENTS-1] = "" ;
+	
+	A_intPatientsStatus[A_uintSpecializationNum-1][MAX_PATIENTS-1] = -1 ;
+	
+}
+ 
+////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
+void Get_vNextPatient( 	unsigned int A_uintspecializationQueue[], string A_strPatientsNames[][MAX_PATIENTS],
+						int A_intPatientsStatus[][MAX_PATIENTS]
+					)
+{
+	
+	unsigned int specializationNum{0} ;
+	
+	Get_vSpecializationNum( specializationNum ) ;
+	
+	if( A_uintspecializationQueue[specializationNum-1] == EMPTY )
+	{
+		cout<<endl <<"No patients at the moment, have a rest doctor" ;
+	}
+	else
+	{
+		
+		cout<<endl <<A_strPatientsNames[specializationNum-1][0] <<" please go to the doctor" ;
+		
+		Shift_vRight( specializationNum, A_strPatientsNames, A_intPatientsStatus ) ;
+		
+		// Remove one from the specialization queue //
+		A_uintspecializationQueue[specializationNum-1] = A_uintspecializationQueue[specializationNum-1] - 1 ;
+		
+	}
+	
+}
+
+////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 
 

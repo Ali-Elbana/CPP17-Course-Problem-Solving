@@ -79,27 +79,39 @@ bool Check_bValidPatientStatus( int A_intPatientStatus ) ;
 
 ////////////////////////////////////////////////////////////////
 
-void Add_vPatient( unsigned int A_uintSpecializationNum		,
-				   int A_intPatientStatus[][MAX_PATIENTS]	,  
-				   unsigned int A_uintspecializationQueue[]	,
-				   string patientsNames[][MAX_PATIENTS]
+void shift_vLeft( 	unsigned int A_uintSpecializationNum, string A_strPatientName, int A_intPatientStatus,
+					string A_strPatientsNames[][MAX_PATIENTS], int A_intPatientsStatus[][MAX_PATIENTS]
+				) ;
+
+////////////////////////////////////////////////////////////////
+
+void Add_vPatient( 	unsigned int A_uintSpecializationNum	  ,
+					string A_strPatientName					  ,
+					int A_intPatientStatus					  ,
+					unsigned int A_uintspecializationQueue[]  ,
+					string A_strPatientsNames[][MAX_PATIENTS] ,  
+					int A_intPatientsStatus[][MAX_PATIENTS]
 				 ) ;
 
 ////////////////////////////////////////////////////////////////
 
-
-
-////////////////////////////////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////////
-
-
+void Print_vAllPatients( unsigned int A_uintspecializationQueue[] ,
+						 string patientsNames[][MAX_PATIENTS]	  ,  
+						 int A_intPatientStatus[][MAX_PATIENTS]
+						) ;
 
 ////////////////////////////////////////////////////////////////
 
+void Shift_vRight( 	unsigned int A_uintSpecializationNum,
+					string A_strPatientsNames[][MAX_PATIENTS], int A_intPatientsStatus[][MAX_PATIENTS] 
+				) ;
 
+////////////////////////////////////////////////////////////////
+
+void Get_vNextPatient( 	unsigned int A_uintspecializationQueue[], 
+						string A_strPatientsNames[][MAX_PATIENTS],
+						int A_intPatientsStatus[][MAX_PATIENTS]
+					) ;
 
 ////////////////////////////////////////////////////////////////
 

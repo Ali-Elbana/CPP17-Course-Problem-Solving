@@ -28,6 +28,8 @@ int main( void )
 	int patientStauts{-1}					;
 	bool isPatientStautsValid{false}		;
 	
+	cout<<endl <<"Welcome to the hospital system" ;
+	
 	do
 	{
 		
@@ -68,14 +70,13 @@ int main( void )
 			}while( isWindowOptionValid == false ) ;
 			
 		}
-		else
+		if( isWindowOptionValid == true )
 		{
 			
 			switch( windowChoice )
 			{
 				
 				case ADD: 
-				 
 				 
 					// Get specialization number, patient name and patient stauts //
 					Get_vSpecializationNum( specializationNum ) ;
@@ -101,7 +102,7 @@ int main( void )
 						}while( isSpecializationNumValid == false ) ;
 					 
 					}
-					else
+					if( isSpecializationNumValid == true )
 					{
 						
 						isPatientNameValid = Check_bValidPatientName( patientName ) ;
@@ -120,7 +121,7 @@ int main( void )
 							}while( isPatientNameValid == false ) ;
 						 
 						}
-						else
+						if( isPatientNameValid == true )
 						{
 							
 							isPatientStautsValid = Check_bValidPatientStatus( patientStauts ) ;
@@ -140,7 +141,7 @@ int main( void )
 								}while( isPatientStautsValid == false ) ;
 								
 							}
-							else
+							if( isPatientStautsValid == true )
 							{
 								
 								// Check that queue isn't full //
@@ -149,15 +150,9 @@ int main( void )
 								if( isSpecializationQueueFull == false )
 								{
 									
-									// Add the patient info to your data: //
-									// Add one more patient to the queue //
-									specializationQueue[specializationNum-1] = specializationQueue[specializationNum-1] + 1 ;
-									
-									// Add his name //
-									patientsNames[specializationNum-1][specializationQueue[specializationNum-1]-1] = patientName ;
-									
-									// Add his status //
-									patientsStatus[specializationNum-1][specializationQueue[specializationNum-1]-1] = patientStauts ;
+									Add_vPatient( 	specializationNum, patientName, patientStauts,
+													specializationQueue, patientsNames, patientsStatus
+												) ;
 									
 								}
 								else
@@ -166,53 +161,60 @@ int main( void )
 								}
 								
 							}
+							else
+							{
+								// Do nothing //
+							}
 							
+						}
+						else
+						{
+							// Do nothing //
 						}
 						
 					}
+					else
+					{
+						// Do nothing //
+					}
 			     
 				break ;
-				/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+				/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
 				case PRINT: 
 				 
-				 
-				 
-				 
+					Print_vAllPatients( specializationQueue, patientsNames, patientsStatus ) ;
 				 
 				break ;
-				/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+				/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
 				case NEXT: 
 				 
-				 
-				 
-				 
+					Get_vNextPatient( specializationQueue, patientsNames, patientsStatus ) ;
 				 
 				break ;
-				/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+				/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
 				case EXIT: 
 				 
-				 
-				 
-				 
+					cout<<endl <<"Exit from the hospital system" <<endl ;
 				 
 				break ;
-				/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+				/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
 				default:
-				 
-				 
-				 
-				 
-				 
-				break ;
 				
+					// Do nothing //
+					
+				break ;
 				
 			}//{switch bracket}//
 			
-			
-		}//{else bracket}//
-		
+		}//{isWindowOptionValid true bracket}//
+		else
+		{
+			// Do nothing //
+		}
 		
 	}while( windowChoice != EXIT ) ;
 	
-	
 }//{main bracket}//
+
+
+
