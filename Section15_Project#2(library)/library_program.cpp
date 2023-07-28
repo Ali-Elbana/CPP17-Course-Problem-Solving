@@ -21,6 +21,7 @@ using namespace std ;
 void Disp_vGUIMenu( void )
 {
 	
+	cout<<endl											;
 	cout<<endl	<<"Library Menu:"						;
 	cout<<endl <<"1) Add book" 							;
 	cout<<endl <<"2) Search for books by prefix" 		;
@@ -78,4 +79,44 @@ void Add_vBook( unsigned int & A_uintID, string & A_strName, unsigned int & A_ui
 
 ////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
+
+void Add_vUser( unsigned int & A_uintID, string & A_strName )
+{
+	
+	// Empty the input buffer, to recieve another input //
+	fflush( stdin ) ;
+	cout<<endl <<"Enter user info:" ;
+	
+	fflush( stdin ) ;
+	cout<<endl <<"Enter user ID: " ;
+	
+	fflush( stdin ) ;
+	cin>>A_uintID ;
+
+	fflush( stdin ) ;
+	cout<<endl <<"Enter user name: " ;
+
+	fflush( stdin ) ;
+	getline( cin, A_strName ) ;
+	
+}
+
+////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
