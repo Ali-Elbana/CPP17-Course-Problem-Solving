@@ -1,33 +1,43 @@
 #ifndef EMPLOYEE_HPP
 #define EMPLOYEE_HPP
 
-/* =================== Namespaces ================= */
-namespace Menu 
-{
-    constexpr int EXIT = 0;
-    constexpr int ADD_EMPLOYEE = 1;
-    constexpr int PRINT_EMPLOYEES = 2;
-    constexpr int DELETE_BY_AGE = 3;
-    constexpr int DELETE_BY_NAME = 4;
-    constexpr int DELETE_BY_ID = 5;
-    constexpr int UPDATE_SALARY = 6;
-}
-/* =================== Templates ================= */
-template<typename T>
-constexpr bool IsValidOption(T option) 
-{
-    return (option >= static_cast<T>(0) && option <= static_cast<T>(6));
-}
+/* ====================== Includes ====================== */
+#include <string>
+
+/* =================== Namespace Usage ================== */
+using std::string;
+
 /* ===================== Class Declarations =============== */
-// ▼▼▼ Class: GUI ▼▼▼
-class GUI 
+class Employee 
 {
-	public:
-	// Methods
-	void display_options(void);
-	int get_option(void);
+private:
+    int id;
+    string name;
+    int age;
+    double salary;
+    char gender;
+
+public:
+    // Constructors
+    Employee();
+    Employee(int id, const string& name, int age, double salary, char gender);
+    
+    // Getters
+    int get_id() const;
+    string get_name() const;
+    int get_age() const;
+    double get_salary() const;
+    char get_gender() const;
+    
+    // Setters
+    void set_salary(double new_salary);
+    void set_age(int new_age);
+    
+    // Utility methods
+    void display() const;
+    bool matches_name(const string& search_name) const;
+    bool is_in_age_range(int min_age, int max_age) const;
 };
-// ▲▲▲ End of GUI ▲▲▲
 
 
 

@@ -25,7 +25,9 @@ following:
 #include <iostream>
 #include <stdlib.h>
 #include "Employee.hpp"
-
+#include "Database.hpp"
+#include "GUI.hpp"
+#include "EmployeeManager.hpp"
 
 /* =================== Namespace Usage ================== */
 using std::cout;
@@ -43,48 +45,14 @@ int main(void)
     system("cls");
     cout << "Employee program started...\n";
 	
-    int selectedOption {0};
-	
     // ----- Logic -----
-    GUI gui;
-	gui.display_options();
-	selectedOption = gui.get_option();
-	
-	switch(selectedOption)
-	{
-		case Menu::EXIT:
-            std::cout << "\nExit selected" << std::endl;
-            break;
-            
-        case Menu::ADD_EMPLOYEE:
-            std::cout << "\nAdd Employee selected" << std::endl;
-            break;
-            
-        case Menu::PRINT_EMPLOYEES:
-            std::cout << "\nPrint Employees selected" << std::endl;
-            break;
-            
-        case Menu::DELETE_BY_AGE:
-            std::cout << "\nDelete by Age selected" << std::endl;
-            break;
-            
-        case Menu::DELETE_BY_NAME:
-            std::cout << "\nDelete by Name selected" << std::endl;
-            break;
-            
-        case Menu::DELETE_BY_ID:
-            std::cout << "\nDelete by ID selected" << std::endl;
-            break;
-            
-        case Menu::UPDATE_SALARY:
-            std::cout << "\nUpdate Salary selected" << std::endl;
-            break;
-            
-        default:
-            std::cout << "\nInvalid choice!" << std::endl;
-            break;
-	}
-	
+
+	Database db;
+    db.add_employee("Alice", 28, 45000, 'F');
+    db.add_employee("Bob", 35, 52000, 'M');
+	db.add_employee("Ali", 25, 52000, 'M');
+    db.display_all();
+
     // ----- End -----
     return 0;
 }

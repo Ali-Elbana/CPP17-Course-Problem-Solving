@@ -1,53 +1,80 @@
 /* ====================== Includes ====================== */
 #include <iostream>
 #include "Employee.hpp"
+#include <iomanip>
 
 /* =================== Namespace Usage ================== */
-using std::cout;
-using std::cin;
-using std::endl;
+using namespace std;
 
 /* ===================== Class Definitions =============== */
-// ▼▼▼ Class: GUI ▼▼▼
-void GUI::display_options(void)
+// Default constructor
+Employee::Employee() : id(0), name(""), age(0), salary(0.0), gender('M') 
 {
-	cout<<endl ;
-	cout<<"+===========================================================================================+\n"   ;
-    cout<<"|                           Welcome to my \"Employee Program\"                          	    |\n"  ;
-    cout<<"+===========================================================================================+\n"   ;
-    cout<<"| 1 | Add new employee                                                                      |\n"   ;
-    cout<<"|---|---------------------------------------------------------------------------------------|\n"   ;
-    cout<<"| 2 | Print all employees                                                                   |\n"   ;
-    cout<<"|---|---------------------------------------------------------------------------------------|\n"   ;
-    cout<<"| 3 | Delete by age                                                                   	    |\n"  ;
-    cout<<"|---|---------------------------------------------------------------------------------------|\n"   ;
-    cout<<"| 4 | Delete by name                                                                   	    |\n"  ;
-	cout<<"|---|---------------------------------------------------------------------------------------|\n"   ;
-    cout<<"| 5 | Delete by ID                                                                   	    |\n"  ;
-    cout<<"|---|---------------------------------------------------------------------------------------|\n"   ;
-	cout<<"| 6 | Uptade salary by name                                                                 |\n"   ;
-	cout<<"|---|---------------------------------------------------------------------------------------|\n"   ;
-    cout<<"| 0 | Exit                                                                                  |\n"   ;
-    cout<<"+===========================================================================================+\n"   ;
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int GUI::get_option(void)
-{
-	int inputOption {0};
-	
-	cout << endl <<"\nKindly, select the option number: ";
-	cin >> inputOption;
-	
-	while(IsValidOption(inputOption) == false)
-	{
-		cout << "\n\nInvalid choice. Please enter a number from 0 to 6.\n";
-	
-		cout << endl << "\nKindly, select the option number: ";
-		cin >> inputOption;
-	}
-	
-	return inputOption;
 	
 }
 
-// ▲▲▲ End of GUI ▲▲▲
+// Parameterized constructor
+Employee::Employee(int id, const string& name, int age, double salary, char gender) 
+    : id(id), name(name), age(age), salary(salary), gender(gender) 
+{
+	
+}
+
+// Getters
+int Employee::get_id() const 
+{
+    return id;
+}
+
+string Employee::get_name() const 
+{
+    return name;
+}
+
+int Employee::get_age() const 
+{
+    return age;
+}
+
+double Employee::get_salary() const 
+{
+    return salary;
+}
+
+char Employee::get_gender() const 
+{
+    return gender;
+}
+
+// Setters
+void Employee::set_salary(double new_salary) 
+{
+    salary = new_salary;
+}
+
+void Employee::set_age(int new_age) 
+{
+    age = new_age;
+}
+
+// Display employee information
+void Employee::display() const 
+{
+    cout << "ID: " << setw(5) << id 
+         << " | Name: " << setw(20) << left << name 
+         << " | Age: " << setw(3) << age 
+         << " | Salary: $" << setw(10) << fixed << setprecision(2) << salary 
+         << " | Gender: " << gender << endl;
+}
+
+// Check if name matches (case-insensitive)
+bool Employee::matches_name(const string& search_name) const 
+{
+    return name == search_name;
+}
+
+// Check if age is in range
+bool Employee::is_in_age_range(int min_age, int max_age) const 
+{
+    return age >= min_age && age <= max_age;
+}
