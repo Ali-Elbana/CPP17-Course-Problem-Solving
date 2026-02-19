@@ -27,8 +27,9 @@ bool Database::add_employee(const string& name, int age,
 int Database::find_by_name(const string& name) const 
 {
 	int result {-1};
+	int i {0};
 	
-    for(size_t i = 0; i < employees.size(); i++) 
+    for(i = 0; i < static_cast<int>(employees.size()); i++) 
 	{
         if(employees[i].matches_name(name) == true) 
 		{
@@ -37,7 +38,10 @@ int Database::find_by_name(const string& name) const
         }
     }
 	
-	result = -1;
+	if(i >= static_cast<int>(employees.size())) // Finish looping on the DB and not found
+	{
+		result = -1;
+	}
 	
     return result;  
 }
@@ -46,8 +50,9 @@ int Database::find_by_name(const string& name) const
 int Database::find_by_id(int id) const 
 {
 	int result {-1};
+	int i {0};
 	
-    for(size_t i = 0; i < employees.size(); i++) 
+    for(i = 0; i < static_cast<int>(employees.size()); i++) 
 	{
         if(employees[i].get_id() == id) 
 		{
@@ -56,10 +61,12 @@ int Database::find_by_id(int id) const
         }
     }
 	
-	result = -1;
-	
+	if(i >= static_cast<int>(employees.size())) // Finish looping on the DB and not found
+	{
+		result = -1;
+	}
+
     return result; 
-	
 }
 
 // Remove employee by ID
@@ -95,7 +102,7 @@ int Database::remove_by_name(const string& name)
         } 
 		else 
 		{
-            ++it;
+            it++;
         }
     }
 
@@ -110,12 +117,12 @@ int Database::remove_by_age_range(int min_age, int max_age) {
 	{
         if(it->is_in_age_range(min_age, max_age) == true) 
 		{
-            it = employees.erase(it);
+            it = employees.erase(it); // erase returns next valid iterator
             removed++;
         } 
 		else 
 		{
-            ++it;
+            it++;
         }
     }
 

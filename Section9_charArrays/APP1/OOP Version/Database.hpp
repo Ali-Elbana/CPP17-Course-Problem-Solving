@@ -10,11 +10,11 @@ using std::string;
 using std::vector;
 
 /* ===================== Class Declarations =============== */
-class Database {
+class Database 
+{
 private:
 
     vector<Employee> employees;
-	
     int next_id;
 
 public:

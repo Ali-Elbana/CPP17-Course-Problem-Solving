@@ -17,15 +17,13 @@ following:
 ■ 6) Update Salary by name]
 ------------------------------------------------------------
 * Notes:
-* [Any important notes, limitations, or assumptions]
+* Not all cases are handeled yet
 ============================================================
 */
 
 /* ====================== Includes ====================== */
 #include <iostream>
 #include <stdlib.h>
-#include "Employee.hpp"
-#include "Database.hpp"
 #include "GUI.hpp"
 #include "EmployeeManager.hpp"
 
@@ -47,11 +45,8 @@ int main(void)
 	
     // ----- Logic -----
 
-	Database db;
-    db.add_employee("Alice", 28, 45000, 'F');
-    db.add_employee("Bob", 35, 52000, 'M');
-	db.add_employee("Ali", 25, 52000, 'M');
-    db.display_all();
+	EmployeeManager manager;
+    manager.run();
 
     // ----- End -----
     return 0;

@@ -1,6 +1,6 @@
 /* ====================== Includes ====================== */
-#include <iostream>
 #include "Employee.hpp"
+#include <iostream>
 #include <iomanip>
 
 /* =================== Namespace Usage ================== */
@@ -60,7 +60,7 @@ void Employee::set_age(int new_age)
 // Display employee information
 void Employee::display() const 
 {
-    cout << "ID: " << setw(5) << id 
+    cout << "ID: " << setw(5) << left << id 
          << " | Name: " << setw(20) << left << name 
          << " | Age: " << setw(3) << age 
          << " | Salary: $" << setw(10) << fixed << setprecision(2) << salary 
